@@ -4,7 +4,8 @@ function Snake() {
 
   self.head = Point(0,0);
 
-  self.tail = [];
+  self.tail = []
+
 
   self.xSpeed = 1;
   self.ySpeed = 0;
@@ -16,12 +17,22 @@ function Snake() {
 
   //grabs object, not colling method would need parenthesis to call method
   function update() {
+    self.tail.map(function(item, index, collection) {
+      let nextItem = collection[index + 1];
+      item.x = nextItem? nextItem.x : self.head.x;
+      item.y = nextItem? nextItem.y : self.head.y;
+    })
     self.head.x = self.head.x + (self.xSpeed * gridScale);
     self.head.y = self.head.y + (self.ySpeed * gridScale);
+
   }
   function show() {
     fill(255)
     rect(self.head.x, self.head.y, gridScale, gridScale)
+
+    self.tail.forEach(function (point) {
+      rect(point.x, point.y, gridScale, gridScale);
+    })
   }
     function direction(x, y) {
       self.xSpeed = x
@@ -30,6 +41,7 @@ function Snake() {
 
     function checkIsEat(food) {
       if (getDistanceToHead(food) < 1) {
+        self.tail.push(Point(self.head.x, self.head.y));
         return true
       } else {
         return false
