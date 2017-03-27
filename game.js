@@ -4,7 +4,7 @@ let food;
 let gridScale = 20
 
 function setup() {
-  createCanvas(300, 300);
+  createCanvas(400, 400);
   frameRate(10)
 
 snake = new Snake()
